@@ -4,6 +4,8 @@ package hello;
 
 option go_package = "github.com/zeimedee/goGrpc";
 
+import "google/api/annotations.proto";
+
 message helloRequest{
     string name = 1;
 }
@@ -14,5 +16,10 @@ message helloResponse{
 
 
 service helloService {
-    rpc Hello(helloRequest) returns (helloResponse) {};
+    rpc Hello(helloRequest) returns (helloResponse) {
+        option (google.api.http) = {
+            post: "/v1/example/hello"
+            body: "*"
+        };
+    }
 }
